@@ -169,6 +169,23 @@ def update_activity(action=None):
         # commit
         conn.commit()
 
+def is_private_user(browser, username):
+    
+    link = 'https://www.instagram.com/'+username+'/'
+    web_adress_navigator(browser, link)
+    try:
+        isPrivate = browser.execute_script(
+        "return window._sharedData.entry_data."
+        "ProfilePage[0].graphql.user.is_private")
+    except WebDriverException: #handle the possible entry_data error
+        try:
+            browser.execute_script("location.reload()")
+            isPrivate = browser.execute_script(
+            "return window._sharedData.entry_data."
+            "ProfilePage[0].graphql.user.is_private")
+        except WebDriverException:
+            isPrivate = None
+        return isPrivate
 
 def add_user_to_blacklist(username, campaign, action, logger, logfolder):
 

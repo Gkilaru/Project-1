@@ -6,8 +6,9 @@ from selenium.common.exceptions import NoSuchElementException
 
 from instapy import InstaPy
 
-insta_username = ''
-insta_password = ''
+insta_username = 'componententity'
+insta_password = 'omalleys'
+
 
 # set headless_browser=True if you want to run InstaPy on a server
 
@@ -18,7 +19,7 @@ insta_password = ''
 
 session = InstaPy(username=insta_username,
                   password=insta_password,
-                  headless_browser=False,
+                  headless_browser=True,
                   multi_logs=True)
 
 try:
@@ -26,19 +27,22 @@ try:
 
     # settings
     session.set_relationship_bounds(enabled=True,
-				 potency_ratio=-1.21,
 				  delimit_by_numbers=True,
-				   max_followers=4590,
-				    max_following=5555,
-				     min_followers=45,
-				      min_following=77)
-    session.set_do_comment(True, percentage=10)
-    session.set_comments(['aMEIzing!', 'So much fun!!', 'Nicey!'])
-    session.set_dont_include(['friend1', 'friend2', 'friend3'])
-    session.set_dont_like(['pizza', 'girl'])
+				   max_followers=20001,
+				    max_following=25000,
+				     min_followers=1,
+				      min_following=10)
+    session.set_user_interact(amount=1, randomize=False, percentage=100, media='Photo')
+    session.set_do_follow(enabled=False, percentage=70)
+    session.set_do_like(enabled=True, percentage=100)
+    session.set_comments(["This is awesome!", "Follow us to win a $5 Graeters gift card with more prizes all summer!", "We're bringing Virtual Reality to the Web, follow us to see and win prizes!"])
+    session.set_do_comment(enabled=True, percentage=100)
 
     # actions
-    session.like_by_tags(['natgeo'], amount=1)
+    session.interact_user_followers(['michaelvanleeuwen'], amount=5, randomize=True)
+
+    
+
 
 except Exception as exc:
     # if changes to IG layout, upload the file to help us locate the change

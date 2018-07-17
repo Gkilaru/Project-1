@@ -1,7 +1,7 @@
 """Module which handles the clarifai api and checks
 the image for invalid content"""
 from clarifai.rest import ClarifaiApp, Image as ClImage
-
+from time import sleep
 
 def check_image(browser, clarifai_api_key, img_tags, img_tags_skip_if_contain, logger, full_match=False, picture_url=None):
     """Uses the link to the image to check for invalid content in the image"""
@@ -38,8 +38,9 @@ def given_tags_in_result(search_tags, clarifai_tags, full_match=False):
     else:
         return any((tag in clarifai_tags for tag in search_tags))
 
-
 def get_imagelink(browser):
     """Gets the imagelink from the given webpage open in the browser"""
-    return browser.find_element_by_xpath('//img[@class = "_2di5p"]') \
-        .get_attribute('src')
+    sleep(1)
+    url = browser.find_element_by_xpath('(//img[@Class="FFVAD"])[last()]').get_attribute('src')
+    print("Url image for Clarifi: {}".format(url))
+    return url
