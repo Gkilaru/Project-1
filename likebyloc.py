@@ -1,7 +1,6 @@
 import os
 import time
 from tempfile import gettempdir
-import clarifai
 
 from selenium.common.exceptions import NoSuchElementException
 
